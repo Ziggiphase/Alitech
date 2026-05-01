@@ -1,0 +1,27 @@
+.repair-hero {
+  background: linear-gradient(135deg, #0a1a0a 0%, #0d2818 50%, #0a1a0a 100%);
+  padding: 80px 0; text-align: center;
+}
+.repair-hero h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--white); margin: 16px 0; }
+.repair-hero p { color: var(--gray-400); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
+
+.repair-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.repair-stat { padding: 28px; text-align: center; }
+.repair-stat strong { display: block; font-size: 1.6rem; color: var(--gold); font-family: var(--font-heading); }
+.repair-stat span { font-size: 0.85rem; color: var(--gray-500); }
+
+.repair-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.repair-card { padding: 32px 24px; display: flex; flex-direction: column; gap: 12px; }
+.repair-card-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: linear-gradient(135deg, rgba(212,168,83,0.12), transparent); color: var(--gold); }
+.repair-card h3 { color: var(--white); font-size: 1.05rem; }
+.repair-meta { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--gray-500); }
+.repair-meta span { display: flex; align-items: center; gap: 4px; }
+
+.repair-cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 32px; margin-top: 48px; }
+.repair-cta h3 { color: var(--white); font-size: 1.2rem; margin-bottom: 4px; }
+.repair-cta p { color: var(--gray-500); font-size: 0.9rem; }
+
+@media (max-width: 768px) {
+  .repair-stats { grid-template-columns: repeat(2, 1fr); }
+  .repair-cta { flex-direction: column; text-align: center; }
+}

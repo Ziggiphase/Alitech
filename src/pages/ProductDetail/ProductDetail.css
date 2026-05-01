@@ -1,0 +1,71 @@
+/* ===== PRODUCT DETAIL ===== */
+.pd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding: 40px 0; }
+
+.pd-main-image { position: relative; padding: 48px; display: flex; align-items: center; justify-content: center; }
+.pd-main-image img { max-width: 380px; max-height: 380px; object-fit: contain; }
+.pd-badge { position: absolute; top: 16px; left: 16px; }
+
+.pd-brand { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); }
+.pd-name { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--white); margin: 8px 0 12px; }
+
+.pd-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+.pd-stars { display: flex; gap: 2px; }
+.pd-rating span { font-size: 0.9rem; color: var(--gray-300); font-weight: 600; }
+.pd-review-count { color: var(--gray-500); font-weight: 400; }
+
+.pd-price-section { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.pd-price { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: var(--white); }
+.pd-original { font-size: 1.1rem; color: var(--gray-600); text-decoration: line-through; }
+
+.pd-desc { color: var(--gray-400); font-size: 0.95rem; line-height: 1.7; margin-bottom: 24px; }
+
+.pd-colors { margin-bottom: 24px; }
+.pd-colors h4 { font-size: 0.85rem; color: var(--gray-300); margin-bottom: 10px; font-family: var(--font-heading); }
+.pd-color-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.pd-color-btn {
+  padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.8rem;
+  background: var(--charcoal); border: 1px solid var(--glass-border); color: var(--gray-300);
+  transition: var(--transition);
+}
+.pd-color-btn.active, .pd-color-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+.pd-actions { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.pd-qty {
+  display: flex; align-items: center; gap: 0; border: 1px solid var(--glass-border); border-radius: var(--radius-sm); overflow: hidden;
+}
+.pd-qty button {
+  width: 40px; height: 44px; display: flex; align-items: center; justify-content: center;
+  background: var(--charcoal); color: var(--gray-300); transition: var(--transition);
+}
+.pd-qty button:hover { background: var(--gray-900); color: var(--gold); }
+.pd-qty span { width: 48px; text-align: center; font-weight: 600; color: var(--white); background: var(--charcoal-light); height: 44px; line-height: 44px; }
+.pd-add-btn { flex: 1; max-width: 280px; justify-content: center; padding: 14px 24px; }
+.pd-wish-btn.active { color: var(--red); border-color: var(--red); background: rgba(239,68,68,0.1); }
+
+.pd-guarantees { display: flex; flex-direction: column; gap: 10px; padding: 20px; background: var(--charcoal); border-radius: var(--radius-md); border: 1px solid var(--glass-border); }
+.pd-guarantee { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--gray-400); }
+.pd-guarantee svg { color: var(--gold); flex-shrink: 0; }
+
+/* Tabs */
+.pd-tabs { padding-bottom: 40px; }
+.pd-tab-nav { display: flex; gap: 4px; margin-bottom: 0; }
+.pd-tab {
+  padding: 12px 24px; font-size: 0.9rem; font-weight: 600; color: var(--gray-500);
+  border-radius: var(--radius-md) var(--radius-md) 0 0; transition: var(--transition);
+  font-family: var(--font-heading);
+}
+.pd-tab.active { background: var(--glass-bg); color: var(--gold); border: 1px solid var(--glass-border); border-bottom: none; }
+.pd-tab-content { padding: 32px; border-radius: 0 var(--radius-lg) var(--radius-lg) var(--radius-lg); }
+
+.pd-specs-table { width: 100%; }
+.pd-specs-table td { padding: 12px 16px; border-bottom: 1px solid var(--glass-border); }
+.pd-specs-table td:first-child { font-weight: 600; color: var(--gray-300); width: 160px; text-transform: capitalize; }
+.pd-specs-table td:last-child { color: var(--gray-400); }
+.pd-full-desc { color: var(--gray-400); line-height: 1.8; }
+.pd-reviews-placeholder { color: var(--gray-500); text-align: center; padding: 40px; }
+
+@media (max-width: 768px) {
+  .pd-grid { grid-template-columns: 1fr; gap: 24px; }
+  .pd-main-image img { max-width: 260px; max-height: 260px; }
+  .pd-tab { padding: 10px 16px; font-size: 0.82rem; }
+}

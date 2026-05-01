@@ -1,0 +1,29 @@
+/* ===== AUTH ===== */
+.auth-page { min-height: 80vh; display: flex; align-items: center; justify-content: center; position: relative; padding: 48px 24px; }
+.auth-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0d0d1a 100%); }
+.auth-container { position: relative; z-index: 1; width: 100%; max-width: 440px; }
+.auth-card { padding: 40px; }
+.auth-header { text-align: center; margin-bottom: 32px; }
+.auth-header .logo-icon { width: 52px; height: 52px; font-size: 1.4rem; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--black); font-family: var(--font-heading); font-weight: 700; border-radius: 14px; }
+.auth-header h1 { font-size: 1.5rem; color: var(--white); margin-bottom: 6px; }
+.auth-header p { color: var(--gray-500); font-size: 0.88rem; }
+
+.auth-form { display: flex; flex-direction: column; gap: 16px; }
+.auth-field { position: relative; display: flex; align-items: center; }
+.auth-field-icon { position: absolute; left: 16px; color: var(--gray-600); pointer-events: none; }
+.auth-field input {
+  width: 100%; padding: 14px 16px 14px 48px; background: var(--gray-900); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md); color: var(--white); font-size: 0.9rem; outline: none; font-family: var(--font-body); transition: var(--transition);
+}
+.auth-field input:focus { border-color: var(--gold); }
+.auth-field input::placeholder { color: var(--gray-600); }
+.auth-eye { position: absolute; right: 16px; color: var(--gray-600); transition: var(--transition); }
+.auth-eye:hover { color: var(--gray-300); }
+
+.auth-extras { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
+.auth-remember { display: flex; align-items: center; gap: 6px; color: var(--gray-400); cursor: pointer; }
+.auth-forgot { color: var(--gold); }
+.auth-submit { width: 100%; justify-content: center; padding: 14px; font-size: 0.95rem; }
+
+.auth-switch { text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--gray-500); }
+.auth-switch button { color: var(--gold); font-weight: 600; margin-left: 4px; }

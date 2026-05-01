@@ -1,0 +1,6 @@
+.deals-hero {
+  background: linear-gradient(135deg, #1a0a00 0%, #3d1500 50%, #1a0a00 100%);
+  padding: 80px 0; text-align: center;
+}
+.deals-hero h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--white); margin: 16px 0; }
+.deals-hero p { color: var(--gray-400); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }

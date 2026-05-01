@@ -1,0 +1,46 @@
+.tradein-hero {
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
+  padding: 80px 0; text-align: center;
+}
+.tradein-hero h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--white); margin: 16px 0; }
+.tradein-hero p { color: var(--gray-400); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
+
+.tradein-container { max-width: 700px; }
+.tradein-steps { display: flex; justify-content: center; gap: 48px; margin-bottom: 40px; }
+.tradein-step { display: flex; align-items: center; gap: 10px; color: var(--gray-600); }
+.tradein-step.active { color: var(--gold); }
+.step-num { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--gray-900); border: 2px solid var(--gray-700); font-size: 0.85rem; font-weight: 700; }
+.tradein-step.active .step-num { background: var(--gold); border-color: var(--gold); color: var(--black); }
+
+.tradein-form { padding: 40px; }
+.tradein-step-content h3 { color: var(--white); font-size: 1.2rem; margin-bottom: 24px; text-align: center; }
+
+.device-types { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.device-type-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px; background: var(--gray-900); border: 2px solid var(--glass-border); border-radius: var(--radius-md); color: var(--gray-400); transition: var(--transition); }
+.device-type-btn.active, .device-type-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,168,83,0.05); }
+.device-type-btn span { font-size: 0.82rem; font-weight: 600; }
+
+.condition-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.condition-btn { padding: 16px 20px; background: var(--gray-900); border: 2px solid var(--glass-border); border-radius: var(--radius-md); text-align: left; color: var(--gray-400); transition: var(--transition); }
+.condition-btn.active, .condition-btn:hover { border-color: var(--gold); }
+.condition-btn strong { display: block; color: var(--white); margin-bottom: 2px; }
+.condition-btn span { font-size: 0.82rem; }
+
+.tradein-next { width: 100%; justify-content: center; }
+.tradein-btns { display: flex; gap: 12px; justify-content: center; }
+
+.tradein-result { text-align: center; }
+.tradein-result-icon { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(212,168,83,0.12); color: var(--gold); margin: 0 auto 16px; }
+.tradein-value { font-size: 2.5rem; font-weight: 700; color: var(--gold); font-family: var(--font-heading); margin: 16px 0; }
+.tradein-result p { color: var(--gray-400); margin-bottom: 24px; }
+
+.tradein-benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+.tradein-benefit { display: flex; align-items: center; gap: 12px; padding: 20px; }
+.tradein-benefit svg { color: var(--gold); flex-shrink: 0; }
+.tradein-benefit strong { display: block; font-size: 0.85rem; color: var(--white); }
+.tradein-benefit span { font-size: 0.78rem; color: var(--gray-500); }
+
+@media (max-width: 768px) {
+  .tradein-steps { gap: 24px; }
+  .tradein-benefits { grid-template-columns: 1fr; }
+}
