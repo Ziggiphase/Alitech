@@ -4,22 +4,22 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState(() => {
-    const saved = localStorage.getItem('alitech_cart');
+    const saved = localStorage.getItem('alitech_cart_v2');
     return saved ? JSON.parse(saved) : [];
   });
   const [wishlist, setWishlist] = useState(() => {
-    const saved = localStorage.getItem('alitech_wishlist');
+    const saved = localStorage.getItem('alitech_wishlist_v2');
     return saved ? JSON.parse(saved) : [];
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [notification, setNotification] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem('alitech_cart', JSON.stringify(cartItems));
+    localStorage.setItem('alitech_cart_v2', JSON.stringify(cartItems));
   }, [cartItems]);
 
   useEffect(() => {
-    localStorage.setItem('alitech_wishlist', JSON.stringify(wishlist));
+    localStorage.setItem('alitech_wishlist_v2', JSON.stringify(wishlist));
   }, [wishlist]);
 
   const showNotification = (message, type = 'success') => {

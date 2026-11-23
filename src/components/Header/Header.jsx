@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Search, ShoppingCart, Heart, User, Menu, X, ChevronDown, Smartphone, Laptop, Tablet, Watch, Gamepad2, Headphones, Cable, Wrench, ArrowLeftRight } from 'lucide-react';
+import { Search, ShoppingCart, Heart, MessageCircle, Menu, X, ChevronDown, Smartphone, Laptop, Tablet, Watch, Gamepad2, Headphones, Cable, Wrench, ArrowLeftRight } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { whatsappLink } from '../../config/site';
 import './Header.css';
 
 const navCategories = [
@@ -50,11 +51,11 @@ export default function Header() {
       {/* Top bar */}
       <div className="top-bar">
         <div className="container top-bar-inner">
-          <span>🔥 Free delivery on orders over ₦100,000</span>
+          <span>📱 Brand New &amp; UK Used Phones and Laptops</span>
           <div className="top-bar-links">
             <Link to="/repair">Repair Services</Link>
             <Link to="/trade-in">Trade-In</Link>
-            <Link to="/contact">Contact</Link>
+            <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">Contact</a>
           </div>
         </div>
       </div>
@@ -63,7 +64,7 @@ export default function Header() {
       <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
         <div className="container header-inner">
           <Link to="/" className="logo" id="header-logo">
-            <span className="logo-icon">A</span>
+            <img src="/brand/alitech-mark.webp" alt="" className="logo-mark" width="66" height="48" />
             <span className="logo-text">ALITECH</span>
           </Link>
 
@@ -97,7 +98,7 @@ export default function Header() {
             {/* Mobile-only links */}
             <div className="nav-mobile-extras">
               <Link to="/wishlist" className="nav-link"><Heart size={16} /> Wishlist</Link>
-              <Link to="/auth" className="nav-link"><User size={16} /> Sign In</Link>
+              <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="nav-link"><MessageCircle size={16} /> Chat on WhatsApp</a>
             </div>
           </nav>
 
@@ -113,9 +114,9 @@ export default function Header() {
               <ShoppingCart size={18} />
               {cartCount > 0 && <span className="header-badge">{cartCount}</span>}
             </button>
-            <Link to="/auth" className="btn btn-primary header-auth-btn" id="auth-btn">
-              <User size={16} /> Sign In
-            </Link>
+            <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="btn btn-primary header-auth-btn" id="whatsapp-btn">
+              <MessageCircle size={16} /> Chat with us
+            </a>
             <button className="btn-icon mobile-menu-btn" onClick={() => setMobileOpen(true)} aria-label="Menu">
               <Menu size={20} />
             </button>

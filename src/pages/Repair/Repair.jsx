@@ -1,5 +1,6 @@
-import { Wrench, Smartphone, BatteryCharging, Droplets, PlugZap, Settings, Laptop, ChevronRight, Phone, Clock, Shield, Star } from 'lucide-react';
+import { Wrench, Smartphone, BatteryCharging, Droplets, PlugZap, Settings, Laptop, ChevronRight, MessageCircle, Clock, Shield, Star } from 'lucide-react';
 import { repairServices } from '../../data/products';
+import { whatsappLink } from '../../config/site';
 import './Repair.css';
 
 const iconMap = { Smartphone, BatteryCharging, Droplets, PlugZap, Settings, Laptop };
@@ -18,10 +19,8 @@ export default function Repair() {
       <section className="section">
         <div className="container">
           <div className="repair-stats">
-            <div className="repair-stat glass-card"><strong>10,000+</strong><span>Devices Repaired</span></div>
+            <div className="repair-stat glass-card"><strong>2,000+</strong><span>Devices Repaired</span></div>
             <div className="repair-stat glass-card"><strong>98%</strong><span>Customer Satisfaction</span></div>
-            <div className="repair-stat glass-card"><strong>90-Day</strong><span>Repair Warranty</span></div>
-            <div className="repair-stat glass-card"><strong>1-3 hrs</strong><span>Average Turnaround</span></div>
           </div>
 
           <h2 className="section-title" style={{ textAlign: 'center', marginTop: '48px' }}>Our Services</h2>
@@ -46,9 +45,9 @@ export default function Repair() {
           <div className="repair-cta glass-card">
             <div>
               <h3>Need a repair? Get in touch.</h3>
-              <p>Walk in or contact us to book a repair appointment.</p>
+              <p>Walk in, or send us a WhatsApp message to book a repair.</p>
             </div>
-            <a href="tel:+2348001234567" className="btn btn-primary"><Phone size={16} /> Call Us Now</a>
+            <a href={whatsappLink('Hello Alitech, I need a repair for my device: ')} target="_blank" rel="noopener noreferrer" className="btn btn-primary"><MessageCircle size={16} /> Book on WhatsApp</a>
           </div>
         </div>
       </section>

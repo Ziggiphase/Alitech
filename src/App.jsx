@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { CartProvider } from './context/CartContext';
+import { ProductsProvider } from './context/ProductsContext';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import CartDrawer from './components/CartDrawer/CartDrawer';
@@ -8,14 +9,17 @@ import Notification from './components/Notification/Notification';
 import Home from './pages/Home/Home';
 import Shop from './pages/Shop/Shop';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
-import Auth from './pages/Auth/Auth';
 import Deals from './pages/Deals/Deals';
 import Repair from './pages/Repair/Repair';
 import TradeIn from './pages/TradeIn/TradeIn';
 import About from './pages/About/About';
-import Contact from './pages/Contact/Contact';
 import Wishlist from './pages/Wishlist/Wishlist';
 import FAQ from './pages/FAQ/FAQ';
+import FloatingWhatsApp from './components/FloatingWhatsApp/FloatingWhatsApp';
+import { site, whatsappLink } from './config/site';
+
+// The admin dashboard is loaded only when someone opens /admin
+const AdminApp = lazy(() => import('./admin/AdminApp'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -24,6 +28,15 @@ function ScrollToTop() {
 }
 
 function AppContent() {
+  const { pathname } = useLocation();
+  if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+    return (
+      <Suspense fallback={<div className="admin-boot">Loading dashboard…</div>}>
+        <AdminApp />
+      </Suspense>
+    );
+  }
+
   return (
     <>
       <ScrollToTop />
@@ -34,12 +47,11 @@ function AppContent() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/shop/:category" element={<Shop />} />
           <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/auth" element={<Auth />} />
           <Route path="/deals" element={<Deals />} />
           <Route path="/repair" element={<Repair />} />
           <Route path="/trade-in" element={<TradeIn />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/contact" element={<ContactRedirect />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/privacy" element={<PolicyPage title="Privacy Policy" />} />
@@ -49,8 +61,21 @@ function AppContent() {
       </main>
       <Footer />
       <CartDrawer />
+      <FloatingWhatsApp />
       <Notification />
     </>
+  );
+}
+
+// Old /contact links (bookmarks, Google) now open WhatsApp directly
+function ContactRedirect() {
+  useEffect(() => { window.location.replace(whatsappLink()); }, []);
+  return (
+    <div className="section container" style={{ textAlign: 'center' }}>
+      <p style={{ color: 'var(--gray-400)' }}>
+        Opening WhatsApp… <a href={whatsappLink()} style={{ color: 'var(--gold)' }}>Tap here if nothing happens</a>.
+      </p>
+    </div>
   );
 }
 
@@ -62,7 +87,7 @@ function PolicyPage({ title }) {
         <div className="glass-card" style={{ padding: '32px', marginTop: '24px' }}>
           <p style={{ color: 'var(--gray-400)', lineHeight: '1.8' }}>
             This {title.toLowerCase()} page is currently being updated. Please check back soon or
-            contact us at <a href="mailto:hello@alitech.ng" style={{ color: 'var(--gold)' }}>hello@alitech.ng</a> for
+            message us on <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--gold)' }}>WhatsApp</a> or email <a href={`mailto:${site.email}`} style={{ color: 'var(--gold)' }}>{site.email}</a> for
             any questions regarding our {title.toLowerCase()}.
           </p>
         </div>
@@ -74,9 +99,11 @@ function PolicyPage({ title }) {
 export default function App() {
   return (
     <Router>
-      <CartProvider>
-        <AppContent />
-      </CartProvider>
+      <ProductsProvider>
+        <CartProvider>
+          <AppContent />
+        </CartProvider>
+      </ProductsProvider>
     </Router>
   );
 }

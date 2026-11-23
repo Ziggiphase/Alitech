@@ -52,3 +52,11 @@
 .cart-total strong { font-size: 1.2rem; color: var(--white); font-family: var(--font-heading); }
 .cart-checkout-btn { width: 100%; justify-content: center; margin-bottom: 8px; }
 .cart-continue { width: 100%; justify-content: center; }
+
+.cart-note {
+  font-size: 0.78rem;
+  color: var(--gray-400);
+  text-align: center;
+  margin: 8px 0 4px;
+  line-height: 1.5;
+}

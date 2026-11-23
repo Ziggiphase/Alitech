@@ -21,7 +21,7 @@ export default function About() {
             </div>
             <div className="about-story-stats">
               <div className="about-stat"><strong>5,000+</strong><span>Happy Customers</span></div>
-              <div className="about-stat"><strong>10,000+</strong><span>Devices Sold</span></div>
+              <div className="about-stat"><strong>2,000+</strong><span>Devices Sold</span></div>
               <div className="about-stat"><strong>15+</strong><span>Brand Partners</span></div>
               <div className="about-stat"><strong>4.8★</strong><span>Average Rating</span></div>
             </div>

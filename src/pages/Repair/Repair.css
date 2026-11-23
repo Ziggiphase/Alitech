@@ -5,7 +5,7 @@
 .repair-hero h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--white); margin: 16px 0; }
 .repair-hero p { color: var(--gray-400); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
 
-.repair-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.repair-stats { display: grid; grid-template-columns: repeat(2, 1fr); max-width: 640px; margin: 0 auto; gap: 16px; }
 .repair-stat { padding: 28px; text-align: center; }
 .repair-stat strong { display: block; font-size: 1.6rem; color: var(--gold); font-family: var(--font-heading); }
 .repair-stat span { font-size: 0.85rem; color: var(--gray-500); }

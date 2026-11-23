@@ -218,3 +218,10 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 600; lin
   .section-title { margin-bottom: 6px; }
   .section-subtitle { margin-bottom: 32px; }
 }
+
+.admin-boot {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: var(--gray-400);
+}

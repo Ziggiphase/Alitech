@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { ArrowLeftRight, Smartphone, ChevronRight, CheckCircle, DollarSign } from 'lucide-react';
+import { ArrowLeftRight, Smartphone, ChevronRight, CheckCircle, MessageCircle } from 'lucide-react';
+import { whatsappLink } from '../../config/site';
 import './TradeIn.css';
 
 const deviceTypes = ['Smartphone', 'Laptop', 'Tablet', 'Smartwatch', 'Game Console'];
 const conditions = [
-  { value: 'excellent', label: 'Excellent', desc: 'Like new, no scratches', multiplier: 1 },
-  { value: 'good', label: 'Good', desc: 'Minor wear, fully functional', multiplier: 0.75 },
-  { value: 'fair', label: 'Fair', desc: 'Visible wear, works fine', multiplier: 0.5 },
-  { value: 'poor', label: 'Poor', desc: 'Significant damage', multiplier: 0.25 },
+  { value: 'excellent', label: 'Excellent', desc: 'Like new, no scratches' },
+  { value: 'good', label: 'Good', desc: 'Minor wear, fully functional' },
+  { value: 'fair', label: 'Fair', desc: 'Visible wear, works fine' },
+  { value: 'poor', label: 'Poor', desc: 'Significant damage' },
 ];
 
 export default function TradeIn() {
@@ -18,7 +19,7 @@ export default function TradeIn() {
   const steps = [
     { num: 1, title: 'Select Device' },
     { num: 2, title: 'Condition' },
-    { num: 3, title: 'Get Quote' },
+    { num: 3, title: 'Chat on WhatsApp' },
   ];
 
   return (
@@ -27,7 +28,7 @@ export default function TradeIn() {
         <div className="container">
           <span className="badge badge-gold"><ArrowLeftRight size={12} /> Trade-In Program</span>
           <h1>Trade In, <span className="gradient-text">Upgrade</span></h1>
-          <p>Get instant value for your old devices. Quick, easy, and fair pricing.</p>
+          <p>Tell us what you have, and we'll give you a quote on WhatsApp.</p>
         </div>
       </section>
 
@@ -74,22 +75,32 @@ export default function TradeIn() {
                 </div>
                 <div className="tradein-btns">
                   <button className="btn btn-secondary" onClick={() => setStep(1)}>Back</button>
-                  <button className="btn btn-primary" onClick={() => deviceCondition && setStep(3)} disabled={!deviceCondition}>
-                    Get Quote <ChevronRight size={16} />
-                  </button>
+                  {deviceCondition ? (
+                    <a
+                      href={whatsappLink(`Hello Alitech, I want to swap/trade in my ${deviceType.toLowerCase()}.\nCondition: ${conditions.find(c => c.value === deviceCondition)?.label}\nModel: `)}
+                      target="_blank" rel="noopener noreferrer"
+                      className="btn btn-primary"
+                      onClick={() => setStep(3)}
+                    >
+                      <MessageCircle size={16} /> Continue on WhatsApp
+                    </a>
+                  ) : (
+                    <button className="btn btn-primary" disabled>
+                      Continue on WhatsApp <ChevronRight size={16} />
+                    </button>
+                  )}
                 </div>
               </div>
             )}
 
             {step === 3 && (
               <div className="tradein-step-content tradein-result animate-fadeIn">
-                <div className="tradein-result-icon"><DollarSign size={36} /></div>
-                <h3>Your Estimated Trade-In Value</h3>
-                <div className="tradein-value">₦{(conditions.find(c => c.value === deviceCondition)?.multiplier * 50000).toLocaleString()}</div>
-                <p>Bring your {deviceType.toLowerCase()} to our store to finalize your trade-in and get instant credit towards your next purchase.</p>
+                <div className="tradein-result-icon"><MessageCircle size={36} /></div>
+                <h3>Continue on WhatsApp</h3>
+                <p>Send us the model and a few photos of your {deviceType.toLowerCase()}, and we'll reply with a quote.</p>
                 <div className="tradein-btns">
                   <button className="btn btn-secondary" onClick={() => { setStep(1); setDeviceType(''); setDeviceCondition(''); }}>Start Over</button>
-                  <a href="tel:+2348001234567" className="btn btn-primary">Book Appointment</a>
+                  <a href={whatsappLink(`Hello Alitech, I want to swap/trade in my ${deviceType.toLowerCase()}.\nCondition: ${conditions.find(c => c.value === deviceCondition)?.label}\nModel: `)} target="_blank" rel="noopener noreferrer" className="btn btn-primary"><MessageCircle size={16} /> Open WhatsApp again</a>
                 </div>
               </div>
             )}

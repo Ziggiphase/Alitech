@@ -1,0 +1,36 @@
+rules_version = '2';
+
+// Alitech database security rules.
+// Paste this into Firebase console → Firestore Database → Rules, then click Publish.
+// To add or remove someone from the admin dashboard, edit the email list below AND
+// ADMIN_EMAILS in src/config/firebase.js.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email.lower() in [
+          'bellobasit790@gmail.com',
+          'abewelaaliua@gmail.com'
+        ];
+    }
+
+    // Product listings shown on the website: anyone can read, only admins can change.
+    match /site/catalog {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Stock and sales records: private to admins.
+    match /units/{unitId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Everything else is locked.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

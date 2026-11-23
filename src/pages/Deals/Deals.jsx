@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Clock, Star, ShoppingCart, ArrowRight, Zap } from 'lucide-react';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { products } from '../../data/products';
+import { useProducts } from '../../context/ProductsContext';
 import './Deals.css';
 
 export default function Deals() {
+  const { products } = useProducts();
   const dealsProducts = products.filter(p => p.originalPrice);
 
   return (

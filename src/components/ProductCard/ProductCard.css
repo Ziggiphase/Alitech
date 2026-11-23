@@ -103,14 +103,23 @@
 }
 .pc-name:hover { color: var(--gold); }
 
-.pc-rating {
+.pc-condition {
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 0.8rem;
-  color: var(--gray-300);
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  font-size: 0.75rem;
 }
-.pc-reviews { color: var(--gray-600); }
+.pc-condition-tag {
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 168, 83, 0.35);
+  color: var(--gold);
+  font-weight: 500;
+}
+.pc-condition--new { border-color: rgba(74, 222, 128, 0.35); color: #4ADE80; }
+.pc-battery { display: inline-flex; align-items: center; gap: 4px; color: var(--gray-400); }
 
 .pc-price-row {
   display: flex;

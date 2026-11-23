@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Heart, ShoppingCart, Star, Eye } from 'lucide-react';
+import { Heart, ShoppingCart, Eye, BatteryMedium } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { conditionLabel } from '../../data/products';
+import { naira } from '../../config/site';
+import { cld } from '../../lib/images';
 import './ProductCard.css';
 
 export default function ProductCard({ product }) {
@@ -34,7 +37,7 @@ export default function ProductCard({ product }) {
 
       {/* Image */}
       <Link to={`/product/${product.id}`} className="pc-image-wrap">
-        <img src={product.image} alt={product.name} className="pc-image" loading="lazy" />
+        <img src={cld(product.image, 600)} alt={product.name} className="pc-image" loading="lazy" />
       </Link>
 
       {/* Info */}
@@ -42,16 +45,19 @@ export default function ProductCard({ product }) {
         <span className="pc-brand">{product.brand}</span>
         <Link to={`/product/${product.id}`} className="pc-name">{product.name}</Link>
 
-        <div className="pc-rating">
-          <Star size={13} fill="#D4A853" stroke="#D4A853" />
-          <span>{product.rating}</span>
-          <span className="pc-reviews">({product.reviews})</span>
+        <div className="pc-condition">
+          <span className={`pc-condition-tag pc-condition--${product.condition}`}>
+            {conditionLabel(product.condition)}{product.grade ? ` · Grade ${product.grade}` : ''}
+          </span>
+          {product.batteryHealth ? (
+            <span className="pc-battery"><BatteryMedium size={13} /> {product.batteryHealth}%</span>
+          ) : null}
         </div>
 
         <div className="pc-price-row">
-          <span className="pc-price">₦{product.price.toLocaleString()}</span>
+          <span className="pc-price">{naira(product.price)}</span>
           {product.originalPrice && (
-            <span className="pc-original">₦{product.originalPrice.toLocaleString()}</span>
+            <span className="pc-original">{naira(product.originalPrice)}</span>
           )}
         </div>
 

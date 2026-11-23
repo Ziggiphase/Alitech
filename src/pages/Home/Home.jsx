@@ -2,10 +2,19 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight, Smartphone, Laptop, Tablet, Watch, Gamepad2, Headphones, Cable, Star, Zap, Shield, Wrench, ArrowLeftRight } from 'lucide-react';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { products, brands, heroSlides, testimonials, categories } from '../../data/products';
+import { brands, heroSlides, testimonials, categories } from '../../data/products';
+import { useProducts } from '../../context/ProductsContext';
+import { cld } from '../../lib/images';
+import { naira } from '../../config/site';
 import './Home.css';
 
 const iconMap = { Smartphone, Laptop, Tablet, Watch, Gamepad2, Headphones, Cable };
+
+// Slide button goes to its product, or to the shop if that product was removed
+const heroLink = (slide, getProduct) => {
+  if (!slide.productId) return '/deals';
+  return getProduct(slide.productId) ? `/product/${slide.productId}` : '/shop';
+};
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -35,7 +44,8 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  const featuredProducts = products.filter(p => p.badge).slice(0, 8);
+  const { products, getProduct } = useProducts();
+  const featuredProducts = (products.some(p => p.featured) ? products.filter(p => p.featured) : products).slice(0, 8);
   const dealsProducts = products.filter(p => p.originalPrice).slice(0, 4);
 
   const nextSlide = () => setCurrentSlide(prev => (prev + 1) % heroSlides.length);
@@ -67,7 +77,7 @@ export default function Home() {
               {heroSlides[currentSlide].subtitle}
             </p>
             <div className="hero-actions animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
-              <Link to={heroSlides[currentSlide].productId ? `/product/${heroSlides[currentSlide].productId}` : '/deals'} className="btn btn-primary btn-lg">
+              <Link to={heroLink(heroSlides[currentSlide], getProduct)} className="btn btn-primary btn-lg">
                 {heroSlides[currentSlide].cta} <ArrowRight size={18} />
               </Link>
               <Link to="/shop" className="btn btn-secondary btn-lg">Browse All</Link>
@@ -155,16 +165,16 @@ export default function Home() {
           </div>
           <div className={`promo-cards ${isVisible['promo-section'] ? 'animate-fadeInUp' : ''}`} style={{ animationDelay: '0.2s' }}>
             {dealsProducts.slice(0, 2).map(product => (
-              <div key={product.id} className="promo-card glass-card">
-                <img src={product.image} alt={product.name} />
+              <Link key={product.id} to={`/product/${product.id}`} className="promo-card glass-card">
+                <img src={cld(product.image, 400)} alt={product.name} />
                 <div>
                   <h4>{product.name}</h4>
                   <div className="promo-prices">
-                    <span className="promo-new">₦{product.price.toLocaleString()}</span>
-                    <span className="promo-old">₦{product.originalPrice.toLocaleString()}</span>
+                    <span className="promo-new">{naira(product.price)}</span>
+                    <span className="promo-old">{naira(product.originalPrice)}</span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -179,7 +189,7 @@ export default function Home() {
             <Link to="/repair" className="service-card glass-card">
               <div className="service-icon"><Wrench size={28} /></div>
               <h3>Expert Repair</h3>
-              <p>Professional repair services for all your devices. Fast turnaround, quality parts.</p>
+              <p>Professional repair services for all your devices, using quality parts.</p>
               <span className="service-link">Learn More <ArrowRight size={14} /></span>
             </Link>
             <Link to="/trade-in" className="service-card glass-card">

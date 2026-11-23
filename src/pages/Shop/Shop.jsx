@@ -2,17 +2,19 @@ import { useState, useMemo } from 'react';
 import { useParams, useSearchParams, Link } from 'react-router-dom';
 import { SlidersHorizontal, Grid3X3, LayoutList, ChevronDown, X, Search } from 'lucide-react';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { products, categories, brands } from '../../data/products';
+import { categories, brands, conditions } from '../../data/products';
+import { useProducts } from '../../context/ProductsContext';
 import './Shop.css';
 
 export default function Shop() {
   const { category } = useParams();
+  const { products, loading } = useProducts();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') || '';
 
   const [sortBy, setSortBy] = useState('featured');
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [priceRange, setPriceRange] = useState([0, 3000]);
+  const [priceRange, setPriceRange] = useState(['', '']);
   const [condition, setCondition] = useState('all');
   const [viewMode, setViewMode] = useState('grid');
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -29,28 +31,30 @@ export default function Shop() {
         p.name.toLowerCase().includes(q) ||
         p.brand.toLowerCase().includes(q) ||
         p.category.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q)
+        (p.description || '').toLowerCase().includes(q)
       );
     }
     if (selectedBrands.length > 0) result = result.filter(p => selectedBrands.includes(p.brand));
-    result = result.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
+    const [minPrice, maxPrice] = priceRange.map(v => (v === '' ? null : Number(v)));
+    if (minPrice !== null) result = result.filter(p => p.price >= minPrice);
+    if (maxPrice !== null) result = result.filter(p => p.price <= maxPrice);
     if (condition !== 'all') result = result.filter(p => p.condition === condition);
 
     switch (sortBy) {
       case 'price-low': result.sort((a, b) => a.price - b.price); break;
       case 'price-high': result.sort((a, b) => b.price - a.price); break;
-      case 'rating': result.sort((a, b) => b.rating - a.rating); break;
+      case 'newest': result.sort((a, b) => new Date(b.added || 0) - new Date(a.added || 0)); break;
       case 'name': result.sort((a, b) => a.name.localeCompare(b.name)); break;
       default: break;
     }
     return result;
-  }, [category, searchQuery, selectedBrands, priceRange, condition, sortBy]);
+  }, [products, category, searchQuery, selectedBrands, priceRange, condition, sortBy]);
 
   const availableBrands = useMemo(() => {
     const catProducts = category ? products.filter(p => p.category === category) : products;
     const brandIds = [...new Set(catProducts.map(p => p.brand))];
     return brands.filter(b => brandIds.includes(b.id));
-  }, [category]);
+  }, [products, category]);
 
   const toggleBrand = (brandId) => {
     setSelectedBrands(prev =>
@@ -60,12 +64,12 @@ export default function Shop() {
 
   const clearFilters = () => {
     setSelectedBrands([]);
-    setPriceRange([0, 3000]);
+    setPriceRange(['', '']);
     setCondition('all');
     setSortBy('featured');
   };
 
-  const hasActiveFilters = selectedBrands.length > 0 || condition !== 'all' || priceRange[0] > 0 || priceRange[1] < 3000;
+  const hasActiveFilters = selectedBrands.length > 0 || condition !== 'all' || priceRange[0] !== '' || priceRange[1] !== '';
 
   return (
     <div className="shop-page">
@@ -126,20 +130,20 @@ export default function Shop() {
           <div className="filter-group">
             <h4>Price Range</h4>
             <div className="price-inputs">
-              <input type="number" value={priceRange[0]} onChange={e => setPriceRange([+e.target.value, priceRange[1]])} placeholder="Min" className="price-input" />
+              <input type="number" value={priceRange[0]} onChange={e => setPriceRange([e.target.value, priceRange[1]])} placeholder="Min ₦" className="price-input" />
               <span>—</span>
-              <input type="number" value={priceRange[1]} onChange={e => setPriceRange([priceRange[0], +e.target.value])} placeholder="Max" className="price-input" />
+              <input type="number" value={priceRange[1]} onChange={e => setPriceRange([priceRange[0], e.target.value])} placeholder="Max ₦" className="price-input" />
             </div>
           </div>
 
           {/* Condition */}
           <div className="filter-group">
             <h4>Condition</h4>
-            {['all', 'new', 'refurbished', 'used'].map(c => (
-              <label key={c} className="filter-radio">
-                <input type="radio" name="condition" value={c} checked={condition === c} onChange={() => setCondition(c)} />
+            {[{ id: 'all', name: 'All' }, ...conditions].map(c => (
+              <label key={c.id} className="filter-radio">
+                <input type="radio" name="condition" value={c.id} checked={condition === c.id} onChange={() => setCondition(c.id)} />
                 <span className="radiomark" />
-                {c === 'all' ? 'All' : c.charAt(0).toUpperCase() + c.slice(1)}
+                {c.name}
               </label>
             ))}
           </div>
@@ -160,7 +164,7 @@ export default function Shop() {
                 <option value="featured">Featured</option>
                 <option value="price-low">Price: Low to High</option>
                 <option value="price-high">Price: High to Low</option>
-                <option value="rating">Top Rated</option>
+                <option value="newest">Newest</option>
                 <option value="name">Name A-Z</option>
               </select>
               <div className="view-toggles">
@@ -180,14 +184,16 @@ export default function Shop() {
               ))}
               {condition !== 'all' && (
                 <button className="active-filter" onClick={() => setCondition('all')}>
-                  {condition} <X size={12} />
+                  {conditions.find(c => c.id === condition)?.name} <X size={12} />
                 </button>
               )}
             </div>
           )}
 
           {/* Products grid */}
-          {filteredProducts.length > 0 ? (
+          {loading && products.length === 0 ? (
+            <div className="shop-empty"><p>Loading products…</p></div>
+          ) : filteredProducts.length > 0 ? (
             <div className={viewMode === 'grid' ? 'products-grid' : 'products-list'}>
               {filteredProducts.map(product => (
                 <ProductCard key={product.id} product={product} />

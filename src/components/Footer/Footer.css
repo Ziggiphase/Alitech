@@ -1,6 +1,6 @@
 /* ===== TRUST BAR ===== */
 .trust-bar { background: var(--charcoal); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); padding: 24px 0; }
-.trust-bar-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.trust-bar-inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .trust-item { display: flex; align-items: center; gap: 12px; color: var(--gray-300); }
 .trust-item svg { color: var(--gold); flex-shrink: 0; }
 .trust-item strong { display: block; font-size: 0.85rem; color: var(--white); }
@@ -23,7 +23,8 @@
 /* ===== FOOTER MAIN ===== */
 .footer-main { padding: 48px 0; }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 40px; }
-.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.footer-logo { display: inline-block; margin-bottom: 16px; }
+.footer-logo img { width: 220px; height: auto; display: block; }
 .footer-about p { color: var(--gray-500); font-size: 0.85rem; line-height: 1.7; margin-bottom: 20px; }
 .footer-socials { display: flex; gap: 10px; }
 .footer-socials a {
