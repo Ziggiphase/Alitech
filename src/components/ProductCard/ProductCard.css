@@ -55,7 +55,7 @@
 }
 .pc-action-btn:hover, .pc-action-btn.active {
   background: var(--gold);
-  color: var(--black);
+  color: var(--on-gold);
   border-color: var(--gold);
 }
 
@@ -158,7 +158,7 @@
 .pc-cart-btn { text-decoration: none; }
 .pc-cart-btn:hover:not(:disabled) {
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: var(--black);
+  color: var(--on-gold);
   border-color: var(--gold);
 }
 .pc-cart-btn:disabled {

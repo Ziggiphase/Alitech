@@ -29,6 +29,9 @@
   --glass-bg: rgba(26, 26, 26, 0.7);
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --header-bg: rgba(10, 10, 10, 0.85);
+  --on-gold: #0A0A0A; /* text on gold buttons/badges — same in both themes */
+  color-scheme: dark;
 
   --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -42,6 +45,63 @@
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* ===== LIGHT THEME =====
+   Same names, light values. Switched by the sun/moon button (ThemeToggle). */
+[data-theme="light"] {
+  --black: #F6F5F2;          /* page background */
+  --black-light: #FFFFFF;
+  --charcoal: #FFFFFF;       /* cards */
+  --charcoal-light: #F1F0EC;
+  --gray-900: #ECEBE7;
+  --gray-800: #DEDDD8;
+  --gray-700: #C9C8C2;
+  --gray-600: #9B9A94;
+  --gray-500: #6F6E68;
+  --gray-400: #56554F;
+  --gray-300: #3B3A35;
+  --gray-200: #27261F;
+  --gray-100: #19191A;
+  --white: #111111;          /* main text */
+  --gold: #B3832B;           /* deeper gold so prices stay readable on white */
+  --gold-light: #C9993D;
+  --gold-dark: #8F6719;
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.09);
+  --glass-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+  --header-bg: rgba(255, 255, 255, 0.9);
+  color-scheme: light;
+}
+
+/* These areas stay dark in both themes (banners, footer with the logo, admin dashboard) */
+[data-theme="light"] :is(.hero, .faq-hero, .tradein-hero, .deals-hero, .repair-hero, .about-hero, .footer, .adm, .adm-login, .admin-boot) {
+  --black: #0A0A0A;
+  --black-light: #111111;
+  --charcoal: #1A1A1A;
+  --charcoal-light: #222222;
+  --gray-900: #2A2A2A;
+  --gray-800: #333333;
+  --gray-700: #444444;
+  --gray-600: #666666;
+  --gray-500: #888888;
+  --gray-400: #AAAAAA;
+  --gray-300: #CCCCCC;
+  --gray-200: #E0E0E0;
+  --gray-100: #F0F0F0;
+  --white: #FFFFFF;
+  --gold: #D4A853;
+  --gold-light: #F5D799;
+  --gold-dark: #B08A3A;
+  --glass-bg: rgba(26, 26, 26, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --header-bg: rgba(10, 10, 10, 0.85);
+  color-scheme: dark;
+}
+
+[data-theme="light"] .footer { background-color: #0A0A0A; color: #E0E0E0; }
+
+body { transition: background-color 0.25s ease, color 0.25s ease; }
 
 *, *::before, *::after {
   margin: 0;
@@ -110,7 +170,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 600; lin
 }
 .btn-primary {
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: var(--black);
+  color: var(--on-gold);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
@@ -141,7 +201,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 600; lin
 }
 .btn-icon:hover {
   background: var(--gold);
-  color: var(--black);
+  color: var(--on-gold);
   border-color: var(--gold);
 }
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Search, MessageCircle, Menu, X, ChevronDown, Smartphone, Laptop, Tablet, Watch, Gamepad2, Headphones, Cable, Wrench, ArrowLeftRight } from 'lucide-react';
 import { whatsappLink } from '../../config/site';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import './Header.css';
 
 const navCategories = [
@@ -103,6 +104,7 @@ export default function Header() {
             <button className="btn-icon" onClick={() => setSearchOpen(!searchOpen)} id="search-toggle" aria-label="Search">
               <Search size={18} />
             </button>
+            <ThemeToggle />
             <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="btn btn-primary header-auth-btn" id="whatsapp-btn">
               <MessageCircle size={16} /> Chat with us
             </a>

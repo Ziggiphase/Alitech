@@ -44,7 +44,7 @@
 }
 .radiomark { border-radius: 50%; }
 .filter-checkbox input:checked + .checkmark { background: var(--gold); border-color: var(--gold); }
-.filter-checkbox input:checked + .checkmark::after { content: '✓'; color: var(--black); font-size: 0.7rem; font-weight: 700; }
+.filter-checkbox input:checked + .checkmark::after { content: '✓'; color: var(--on-gold); font-size: 0.7rem; font-weight: 700; }
 .filter-radio input:checked + .radiomark { border-color: var(--gold); }
 .filter-radio input:checked + .radiomark::after { content: ''; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; }
 

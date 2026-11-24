@@ -22,7 +22,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(10, 10, 10, 0.85);
+  background: var(--header-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
@@ -31,6 +31,42 @@
 .header--scrolled {
   background: rgba(10, 10, 10, 0.95);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+[data-theme="light"] .header--scrolled {
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Logo emblem keeps its dark backing in light mode */
+[data-theme="light"] .logo-mark {
+  background: #0A0A0A;
+  border-radius: 10px;
+  padding: 4px 6px;
+  box-sizing: content-box;
+  height: 40px;
+}
+
+/* Light / dark switch */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--gray-700);
+  background: var(--charcoal);
+  color: var(--white);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition);
+}
+.theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
+.theme-toggle svg { color: var(--gold); }
+@media (max-width: 1180px) {
+  .theme-toggle { width: 38px; padding: 0; justify-content: center; }
+  .theme-toggle-label { display: none; }
 }
 .header-inner {
   display: flex;
@@ -59,7 +95,7 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: var(--black);
+  color: var(--on-gold);
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1.2rem;
@@ -146,7 +182,7 @@
   width: 18px;
   height: 18px;
   background: var(--gold);
-  color: var(--black);
+  color: var(--on-gold);
   font-size: 0.65rem;
   font-weight: 700;
   border-radius: 50%;

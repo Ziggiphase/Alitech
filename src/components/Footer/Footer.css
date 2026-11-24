@@ -32,7 +32,7 @@
   border-radius: 50%; background: var(--gray-900); color: var(--gray-400);
   transition: var(--transition); border: 1px solid var(--glass-border);
 }
-.footer-socials a:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+.footer-socials a:hover { background: var(--gold); color: var(--on-gold); border-color: var(--gold); }
 .footer-col h4 { color: var(--white); font-family: var(--font-heading); font-size: 0.95rem; margin-bottom: 16px; }
 .footer-col a, .footer-contact { display: flex; align-items: center; gap: 8px; color: var(--gray-500); font-size: 0.85rem; padding: 4px 0; transition: var(--transition); }
 .footer-col a:hover { color: var(--gold); }

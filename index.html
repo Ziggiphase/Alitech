@@ -8,6 +8,10 @@
     <meta name="description" content="Alitech — Premium electronics. Phones, laptops, tablets, smartwatches, game consoles and more. Buy, repair, trade-in. Quality guaranteed." />
     <meta name="keywords" content="electronics, phones, laptops, tablets, smartwatches, game consoles, repair, trade-in, Alitech" />
     <meta name="theme-color" content="#0A0A0A" />
+    <script>
+      // Apply the visitor's saved light/dark choice before the page draws (no flash)
+      try { if (localStorage.getItem('alitech_theme') === 'light') document.documentElement.setAttribute('data-theme', 'light'); } catch (e) {}
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">

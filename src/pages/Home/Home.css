@@ -87,7 +87,7 @@
 }
 .hero-nav-btn:hover {
   background: var(--gold);
-  color: var(--black);
+  color: var(--on-gold);
 }
 .hero-dots {
   display: flex;
@@ -346,7 +346,7 @@
   height: 40px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: var(--black);
+  color: var(--on-gold);
   display: flex;
   align-items: center;
   justify-content: center;
