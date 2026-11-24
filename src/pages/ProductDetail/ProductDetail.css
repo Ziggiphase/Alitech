@@ -24,7 +24,8 @@
 .pd-thumb.active { border-color: var(--gold); }
 .pd-thumb img { width: 100%; height: 100%; object-fit: contain; }
 
-.pd-whatsapp-actions { display: grid; gap: 10px; margin-bottom: 24px; }
+.pd-order-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.pd-order-row .btn { flex: 1; padding: 14px 20px; font-size: 1rem; }
 .pd-wa-btn { background: #25D366; color: #fff; justify-content: center; font-weight: 600; }
 .pd-wa-btn:hover { background: #1ebe5b; color: #fff; }
 .pd-wa-secondary { justify-content: center; }

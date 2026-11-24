@@ -155,6 +155,7 @@
   font-weight: 600;
   transition: var(--transition);
 }
+.pc-cart-btn { text-decoration: none; }
 .pc-cart-btn:hover:not(:disabled) {
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
   color: var(--black);

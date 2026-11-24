@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Heart, ShoppingCart, Minus, Plus, Share2, ChevronRight, MessageCircle, BatteryMedium, BadgeCheck } from 'lucide-react';
+import { Share2, ChevronRight, MessageCircle, BatteryMedium, BadgeCheck } from 'lucide-react';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { useCart } from '../../context/CartContext';
 import { conditionLabel } from '../../data/products';
 import { useProducts } from '../../context/ProductsContext';
 import { cld } from '../../lib/images';
@@ -13,13 +12,11 @@ export default function ProductDetail() {
   const { id } = useParams();
   const { products, getProduct, loading } = useProducts();
   const product = getProduct(id);
-  const { addToCart, toggleWishlist, isInWishlist } = useCart();
-  const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState(null);
   const [activeImage, setActiveImage] = useState(0);
 
   // Reset gallery when moving between products
-  useEffect(() => { setActiveImage(0); setQuantity(1); }, [id]);
+  useEffect(() => { setActiveImage(0); }, [id]);
 
   if (!product && loading) {
     return <div className="container section" style={{ textAlign: 'center', color: 'var(--gray-400)' }}>Loading…</div>;
@@ -119,26 +116,18 @@ export default function ProductDetail() {
               </div>
             )}
 
-            {/* Quantity + Actions */}
-            <div className="pd-actions">
-              <div className="pd-qty">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))}><Minus size={16} /></button>
-                <span>{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)}><Plus size={16} /></button>
-              </div>
-              <button className="btn btn-primary pd-add-btn" onClick={() => addToCart(product, quantity)} disabled={!product.inStock}>
-                <ShoppingCart size={18} /> {product.inStock ? 'Add to Cart' : 'Out of Stock'}
-              </button>
-              <button className={`btn-icon pd-wish-btn ${isInWishlist(product.id) ? 'active' : ''}`} onClick={() => toggleWishlist(product)}>
-                <Heart size={18} fill={isInWishlist(product.id) ? 'currentColor' : 'none'} />
-              </button>
+            {/* Order + share */}
+            <div className="pd-order-row">
+              {product.inStock ? (
+                <a href={whatsappLink(orderMsg)} target="_blank" rel="noopener noreferrer" className="btn pd-wa-btn">
+                  <MessageCircle size={18} /> Order on WhatsApp
+                </a>
+              ) : (
+                <a href={whatsappLink(`Hello Alitech, the ${product.name} shows sold out. Will you get another one soon?\n${pageUrl}`)} target="_blank" rel="noopener noreferrer" className="btn btn-secondary pd-wa-secondary">
+                  <MessageCircle size={18} /> Sold out — ask when it's back
+                </a>
+              )}
               <button className="btn-icon" aria-label="Share" onClick={handleShare}><Share2 size={18} /></button>
-            </div>
-
-            <div className="pd-whatsapp-actions">
-              <a href={whatsappLink(orderMsg)} target="_blank" rel="noopener noreferrer" className="btn pd-wa-btn">
-                <MessageCircle size={18} /> Order on WhatsApp
-              </a>
             </div>
 
           </div>

@@ -44,8 +44,11 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  const { products, getProduct } = useProducts();
-  const featuredProducts = (products.some(p => p.featured) ? products.filter(p => p.featured) : products).slice(0, 8);
+  const { products, getProduct, loading } = useProducts();
+  // Newest 5 phones (products are already sorted newest first)
+  const latestPhones = products.filter(p => p.category === 'phones').slice(0, 5);
+  // Items the seller ticked "Show on the homepage"
+  const featuredProducts = products.filter(p => p.featured).slice(0, 8);
   const dealsProducts = products.filter(p => p.originalPrice).slice(0, 4);
 
   const nextSlide = () => setCurrentSlide(prev => (prev + 1) % heroSlides.length);
@@ -96,6 +99,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===== LATEST PHONES ===== */}
+      {(loading || latestPhones.length > 0) && (
+        <section className="section latest-section" id="latest-phones">
+          <div className="container">
+            <div className="section-header">
+              <div>
+                <h2 className="section-title">Latest <span className="gradient-text">Phones</span></h2>
+                <p className="section-subtitle">Just arrived — brand new and UK used</p>
+              </div>
+              <Link to="/shop/phones" className="btn btn-secondary">All Phones <ArrowRight size={16} /></Link>
+            </div>
+            {latestPhones.length > 0 ? (
+              <div className="latest-grid">
+                {latestPhones.map(product => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <p className="latest-loading">Loading latest phones…</p>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* ===== BRANDS MARQUEE ===== */}
       <section className="brands-section">
         <div className="brands-marquee">
@@ -136,8 +163,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== FEATURED PRODUCTS ===== */}
-      <section className="section observe" id="featured-section">
+      {/* ===== FEATURED PRODUCTS (only when the seller has picked some) ===== */}
+      {featuredProducts.length > 0 && (
+      <section className="section" id="featured-section">
         <div className="container">
           <div className="section-header">
             <div>
@@ -146,13 +174,14 @@ export default function Home() {
             </div>
             <Link to="/shop" className="btn btn-secondary">Shop All <ArrowRight size={16} /></Link>
           </div>
-          <div className={`products-grid ${isVisible['featured-section'] ? 'animate-fadeInUp' : ''}`}>
+          <div className="products-grid">
             {featuredProducts.map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </div>
       </section>
+      )}
 
       {/* ===== PROMO BANNER ===== */}
       <section className="promo-banner observe" id="promo-section">

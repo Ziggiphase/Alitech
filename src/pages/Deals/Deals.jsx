@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Clock, Star, ShoppingCart, ArrowRight, Zap } from 'lucide-react';
+import { Clock, Star, ArrowRight, Zap } from 'lucide-react';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import { useProducts } from '../../context/ProductsContext';
 import './Deals.css';

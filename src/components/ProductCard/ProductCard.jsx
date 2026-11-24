@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Heart, ShoppingCart, Eye, BatteryMedium } from 'lucide-react';
-import { useCart } from '../../context/CartContext';
+import { Eye, BatteryMedium, MessageCircle } from 'lucide-react';
 import { conditionLabel } from '../../data/products';
-import { naira } from '../../config/site';
+import { naira, whatsappLink } from '../../config/site';
 import { cld } from '../../lib/images';
 import './ProductCard.css';
 
 export default function ProductCard({ product }) {
-  const { addToCart, toggleWishlist, isInWishlist } = useCart();
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
@@ -23,13 +21,6 @@ export default function ProductCard({ product }) {
 
       {/* Quick actions */}
       <div className="pc-actions">
-        <button
-          className={`pc-action-btn ${isInWishlist(product.id) ? 'active' : ''}`}
-          onClick={() => toggleWishlist(product)}
-          aria-label="Add to wishlist"
-        >
-          <Heart size={16} fill={isInWishlist(product.id) ? 'currentColor' : 'none'} />
-        </button>
         <Link to={`/product/${product.id}`} className="pc-action-btn" aria-label="Quick view">
           <Eye size={16} />
         </Link>
@@ -61,14 +52,18 @@ export default function ProductCard({ product }) {
           )}
         </div>
 
-        <button
-          className="pc-cart-btn"
-          onClick={() => addToCart(product)}
-          disabled={!product.inStock}
-        >
-          <ShoppingCart size={15} />
-          {product.inStock ? 'Add to Cart' : 'Unavailable'}
-        </button>
+        {product.inStock ? (
+          <a
+            className="pc-cart-btn"
+            href={whatsappLink(`Hello Alitech, I'm interested in the ${product.name} (${[conditionLabel(product.condition), product.grade && `Grade ${product.grade}`].filter(Boolean).join(', ')}) — ${naira(product.price)}. Is it available?`)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <MessageCircle size={15} /> Order on WhatsApp
+          </a>
+        ) : (
+          <button className="pc-cart-btn" disabled>Sold out</button>
+        )}
       </div>
     </div>
   );

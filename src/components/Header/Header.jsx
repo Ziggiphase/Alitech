@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Search, ShoppingCart, Heart, MessageCircle, Menu, X, ChevronDown, Smartphone, Laptop, Tablet, Watch, Gamepad2, Headphones, Cable, Wrench, ArrowLeftRight } from 'lucide-react';
-import { useCart } from '../../context/CartContext';
+import { Search, MessageCircle, Menu, X, ChevronDown, Smartphone, Laptop, Tablet, Watch, Gamepad2, Headphones, Cable, Wrench, ArrowLeftRight } from 'lucide-react';
 import { whatsappLink } from '../../config/site';
 import './Header.css';
 
@@ -21,7 +20,6 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [shopDropdown, setShopDropdown] = useState(false);
-  const { cartCount, setIsCartOpen, wishlist } = useCart();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -97,7 +95,6 @@ export default function Header() {
 
             {/* Mobile-only links */}
             <div className="nav-mobile-extras">
-              <Link to="/wishlist" className="nav-link"><Heart size={16} /> Wishlist</Link>
               <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="nav-link"><MessageCircle size={16} /> Chat on WhatsApp</a>
             </div>
           </nav>
@@ -105,14 +102,6 @@ export default function Header() {
           <div className="header-actions">
             <button className="btn-icon" onClick={() => setSearchOpen(!searchOpen)} id="search-toggle" aria-label="Search">
               <Search size={18} />
-            </button>
-            <Link to="/wishlist" className="btn-icon header-wishlist" id="wishlist-btn" aria-label="Wishlist">
-              <Heart size={18} />
-              {wishlist.length > 0 && <span className="header-badge">{wishlist.length}</span>}
-            </Link>
-            <button className="btn-icon" onClick={() => setIsCartOpen(true)} id="cart-toggle" aria-label="Cart">
-              <ShoppingCart size={18} />
-              {cartCount > 0 && <span className="header-badge">{cartCount}</span>}
             </button>
             <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="btn btn-primary header-auth-btn" id="whatsapp-btn">
               <MessageCircle size={16} /> Chat with us

@@ -1,11 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
-import { CartProvider } from './context/CartContext';
 import { ProductsProvider } from './context/ProductsContext';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import CartDrawer from './components/CartDrawer/CartDrawer';
-import Notification from './components/Notification/Notification';
 import Home from './pages/Home/Home';
 import Shop from './pages/Shop/Shop';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
@@ -13,7 +10,6 @@ import Deals from './pages/Deals/Deals';
 import Repair from './pages/Repair/Repair';
 import TradeIn from './pages/TradeIn/TradeIn';
 import About from './pages/About/About';
-import Wishlist from './pages/Wishlist/Wishlist';
 import FAQ from './pages/FAQ/FAQ';
 import FloatingWhatsApp from './components/FloatingWhatsApp/FloatingWhatsApp';
 import { site, whatsappLink } from './config/site';
@@ -52,7 +48,7 @@ function AppContent() {
           <Route path="/trade-in" element={<TradeIn />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<ContactRedirect />} />
-          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/wishlist" element={<Navigate to="/shop" replace />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/privacy" element={<PolicyPage title="Privacy Policy" />} />
           <Route path="/terms" element={<PolicyPage title="Terms of Service" />} />
@@ -60,9 +56,7 @@ function AppContent() {
         </Routes>
       </main>
       <Footer />
-      <CartDrawer />
       <FloatingWhatsApp />
-      <Notification />
     </>
   );
 }
@@ -100,9 +94,7 @@ export default function App() {
   return (
     <Router>
       <ProductsProvider>
-        <CartProvider>
-          <AppContent />
-        </CartProvider>
+        <AppContent />
       </ProductsProvider>
     </Router>
   );
